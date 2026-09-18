@@ -11,6 +11,7 @@
         $valorFinal = 1;
     }
 
+    //$_GET['final']??10; //otra forma
 
     for($i=0 ; $i < $valorFinal ; $i++){
         echo "Hola ".$i." veces."."</br>";

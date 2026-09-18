@@ -8,6 +8,8 @@
 <ol>
     <li><a href="ejemplo1.php">Ejercicio de mostrar caracteres por pantalla.</a> </li>
     <li><a href="ejemplo2.php">Mostrar caracteres por pantalla un for</a> </li>
+    <li><a href="ejemplo3.php">Funciones</a> </li>
+
 
 </ol>
 </body>
