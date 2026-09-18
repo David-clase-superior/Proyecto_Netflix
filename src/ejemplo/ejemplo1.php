@@ -1,5 +1,7 @@
 <?php
-
+    $opcion1footer="Home";
+    $opcion2footer="Ejercicio Siguiente";
+    //$usuario="David";
     $variable = "Hola";
 
     echo "<h3>Esto es un titulo</h3>";
@@ -15,4 +17,14 @@
     echo "</br>";
     echo "esto es una cadena "."y esto es otra cadena "."</br>";
 ?>
-<a href="principal.php">Volver a la página principal</a>
+<p>Bienvenido <?php
+    if(isset($usuario)){
+        echo"$usuario";
+    }else{
+        echo "Sin nombre";
+    }
+?></p>
+<a href="principal.php"><?php echo "$opcion1footer" ?></a>
+</br>
+<a href="principal.php"><?=$opcion2footer?></a>
+
