@@ -8,7 +8,7 @@
         echo "</br>";
     echo "<p class='parrafo'>Esto es un ejemplo de parrafo</p>";
         echo "</br>";
-    echo 'El valor de la variable 1 es $variable';
+    echo 'El valor de la variable 1 es $variable.';
         echo "</br>";
     echo "El valor de la variable 1 es $variable";
         echo "</br>";

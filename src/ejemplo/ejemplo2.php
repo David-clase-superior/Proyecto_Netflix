@@ -13,7 +13,7 @@
 
 
     for($i=0 ; $i < $valorFinal ; $i++){
-        echo "Hola ".$i." veces"."</br>";
+        echo "Hola ".$i." veces."."</br>";
     }
 
     for($i=0 ; $i < 5 ; $i++){
