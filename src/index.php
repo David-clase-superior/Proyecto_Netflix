@@ -10,8 +10,15 @@
 
     $router = new RouteCollector();
 
+    $router->get('/', function(){
+        include_once "app/Views/frontend/frontend.index.php";
+    });
     $router->get('/admin', function(){
-        return 'Estas intentando acceder a la funcion de admin';
+        include_once "app/Views/index.html";
+    });
+
+    $router->get('/series', function(){
+        include_once "app/Views/frontend/template/frontend.series.php";
     });
 
     $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
