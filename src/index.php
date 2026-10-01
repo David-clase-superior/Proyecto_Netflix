@@ -17,8 +17,25 @@
         include_once "app/Views/index.html";
     });
 
+    $router->get('/obtener-pass', function(){
+        include_once "ejemplo/funciones.php";
+        echo create_pass();
+    });
+
     $router->get('/series', function(){
         include_once "app/Views/frontend/template/frontend.series.php";
+    });
+
+
+    $router->get('/movie/add', function(){
+        include_once "app/Views/backend/admin.movie.new.php";
+    });
+
+    $router->post('/movie', function(){
+        //Que hacemos con los datos de la pelicula
+        var_dump($_POST);
+        var_dump($_FILES);
+        //$_POST['genero'][0];
     });
 
     $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
