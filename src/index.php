@@ -30,12 +30,21 @@
     $router->get('/movie/add', function(){
         include_once "app/Views/backend/admin.movie.new.php";
     });
-
+    $router->get('/panel-control', function(){
+        include_once "app/Views/backend/admin.index.php";
+    });
+    $router->get('/catalogo', function(){
+        include_once "app/Views/backend/catalogo.index.php";
+    });
+    $router->get('/formulario', function(){
+        include_once "app/Views/backend/code.php";
+    });
     $router->post('/movie', function(){
         //Que hacemos con los datos de la pelicula
         var_dump($_POST);
         var_dump($_FILES);
         //$_POST['genero'][0];
+        //manageFiles($_FILES);
     });
 
     $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
