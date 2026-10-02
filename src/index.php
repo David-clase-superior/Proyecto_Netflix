@@ -25,8 +25,6 @@
     $router->get('/series', function(){
         include_once "app/Views/frontend/template/frontend.series.php";
     });
-
-
     $router->get('/movie/add', function(){
         include_once "app/Views/backend/admin.movie.new.php";
     });
