@@ -6,6 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/src/spec" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/phroute/phroute" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/brick/math" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/ramsey/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/ramsey/uuid" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
