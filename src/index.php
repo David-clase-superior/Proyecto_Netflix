@@ -7,8 +7,36 @@
 
     use Phroute\Phroute\Exception\HttpRouteNotFoundException;
     use Phroute\Phroute\RouteCollector;
+    use David\Proyecto1\Controllers\UserController;
 
     $router = new RouteCollector();
+    //Rutas de ejemplo
+
+    //rutas de usuario
+    //rutas de api rest
+
+    //Vistas
+    $router->get('/register',[UserController::class, 'create']);
+    $router->get('/user/{id}/edit',[UserController::class, 'edit']);
+
+    $router->get('/user',[UserController::class, 'index']);
+    $router->get('/user/{id}',[UserController::class, 'show']);
+
+    $router->post('/user',[UserController::class, 'store']);
+
+    $router->put('/user/{id}',[UserController::class, 'update']);
+
+    $router->delete('/user/{id}',[UserController::class, 'destroy']);
+
+
+
+
+
+
+
+
+//Rutas de ejemplo
+
 
     $router->get('/', function(){
         include_once "app/Views/frontend/frontend.index.php";
