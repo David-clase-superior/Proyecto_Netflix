@@ -2,6 +2,7 @@
 
 namespace David\Proyecto1\Models;
 
+use David\Proyecto1\Class\User;
 use PDO;
 
 class UserModel
@@ -25,11 +26,12 @@ class UserModel
 
         $stmt->execute();
 
-        $resultado = $stmt->fetchAll();
+        $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        var_dump($resultado);
+        //var_dump($resultado);
+        return User::createMultipleUsersFromArray($resultado);
 
-        return [];
-
+        //echo "El usuario es: ".$resultado[0]['name'];
+        //echo "El usuario es: ".$resultado[0][3];
     }
 }
