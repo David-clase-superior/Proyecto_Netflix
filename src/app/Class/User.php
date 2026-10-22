@@ -115,7 +115,7 @@ class User implements \JsonSerializable
         if(isset($userData['birthdate'])){
             $usuario->setBirthdate(\DateTime::createFromFormat('Y-m-d',$userData['birthdate']));
         }else{
-            $usuario->setBirthdate(\DateTime::createFromFormat('Y-m-d',$userData['1900-01-01']));
+            $usuario->setBirthdate(\DateTime::createFromFormat('Y-m-d','1900-01-01'));
         }
 
 
