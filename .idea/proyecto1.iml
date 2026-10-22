@@ -9,6 +9,9 @@
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/brick/math" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/ramsey/collection" />
       <excludeFolder url="file://$MODULE_DIR$/src/vendor/ramsey/uuid" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/respect/stringifier" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/respect/validation" />
+      <excludeFolder url="file://$MODULE_DIR$/src/vendor/symfony/polyfill-mbstring" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -29,12 +29,6 @@
     $router->delete('/user/{id}',[UserController::class, 'destroy']);
 
 
-
-
-
-
-
-
 //Rutas de ejemplo
 
 
@@ -68,7 +62,7 @@
     $router->post('/movie', function(){
         //Que hacemos con los datos de la pelicula
         var_dump($_POST);
-        var_dump($_FILES);
+        //var_dump($_FILES);
         //$_POST['genero'][0];
         //manageFiles($_FILES);
     });

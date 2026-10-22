@@ -17,6 +17,9 @@
       <path value="$PROJECT_DIR$/src/vendor/ramsey/uuid" />
       <path value="$PROJECT_DIR$/src/vendor/brick/math" />
       <path value="$PROJECT_DIR$/src/vendor/ramsey/collection" />
+      <path value="$PROJECT_DIR$/src/vendor/respect/validation" />
+      <path value="$PROJECT_DIR$/src/vendor/respect/stringifier" />
+      <path value="$PROJECT_DIR$/src/vendor/symfony/polyfill-mbstring" />
     </include_path>
   </component>
   <component name="PhpStanOptionsConfiguration">
