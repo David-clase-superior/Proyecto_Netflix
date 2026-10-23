@@ -2,6 +2,9 @@
 
 namespace David\Proyecto1\Class;
 
+use Respect\Validation\Exceptions\NestedValidationException;
+use Respect\Validation\Validator as v;
+
 class User implements \JsonSerializable
 {
     //Propiedades
@@ -99,15 +102,21 @@ class User implements \JsonSerializable
         $usuario = new User();
 
         if(isset($userData['id'])){
-            //Si el usuario se está registrando.
+            //Si el usuario se esta leyendo en la BD..
             $usuario->setId($userData['id']);
+            $usuario->setPassword($userData['password']);
+        }else{
+            //Estoy intentando crear un usuario nuevo
+            //Cifrar la contraseña antes de guardar en la BD
+            $password_cifrado=password_hash($userData['password'],PASSWORD_DEFAULT);
+            $usuario->setPassword($password_cifrado);
         }
         //Si el usuario se está leyendo en la base de datos
 
         //Propiedades que se tiene que insertar
         $usuario->setName($userData['name']);
         $usuario->setEmail($userData['email']);
-        $usuario->setPassword($userData['password']);
+
 
         //Propiedades que pueden no insertarse
         $usuario->setAddress($userData['address']??'');
@@ -128,5 +137,20 @@ class User implements \JsonSerializable
             $usuarios[]=User::createFromArray($datosUsuario);
         }
         return $usuarios;
+    }
+    public static function validateUserCreation(array $userData):array|true{
+        //Validar los datos que me han llegado
+        try{
+            v::key('name', v::stringType())->
+            key('address', v::stringType(), false)->
+            key('phone', v::stringType()->length(9,9),false)->
+            key('birtdate', v::date('d/m/Y'), false)->
+            key('password',v::stringType()->length(2,25))->
+            key('email',v::email())->assert($userData);
+        }catch (NestedValidationException $e){
+            return $e->getMessages();
+        }
+        return true;
+
     }
 }

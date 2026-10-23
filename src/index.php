@@ -9,6 +9,10 @@
     use Phroute\Phroute\RouteCollector;
     use David\Proyecto1\Controllers\UserController;
 
+    //Herramienta para cargar las variables de entorno
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+
     $router = new RouteCollector();
     //Rutas de ejemplo
 

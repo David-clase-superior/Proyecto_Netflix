@@ -17,7 +17,7 @@ class UserController implements ControllerInterface
         //$modelo = new UserModel(); no muy buena practica
         //$usuarios=[];
         $usuarios=UserModel::getUsers();
-        var_dump($usuarios);
+        //var_dump($usuarios);
         include_once "app/Views/backend/admin.users.index.php";
         //Tengo que crear una vista donde se muestre una tabla con todos los usuarios
         //$titulo = "Gestion de usuarios"; para el backend html/php
@@ -43,30 +43,50 @@ class UserController implements ControllerInterface
     public function store()
     {
         //Recibir los datos que me llegan por el metodo POST
-        var_dump($_POST);
+        //var_dump($_POST);
+        $validacion=User::validateUserCreation($_POST);
 
-        //Validar los datos que me han llegado
-        try{
-            v::key('name', v::stringType())->
-            key('address', v::stringType(), false)->
-            key('phone', v::stringType()->length(9,9, false))->
-            key('birtdate', v::date('d/m/Y'), false)->
-            key('password',v::stringType()->length(2,25))->
-            key('email',v::email())->assert($_POST);
-        }catch (NestedValidationException $e){
-            $errores = $e->getMessages();
-            foreach ($errores as $error){
+        if ($validacion===true) {
+
+            $usuario = User::createFromArray($_POST);
+
+            //Enviar al modelo la instancia del objeto que debe guardar en la BD
+            if (!UserModel::saveUser($usuario)) {
+
+                return "Ha ocurrido un error de almacenamiento";
+
+            } else {
+                return "Se ha guardado";
+            }
+        }else {
+            foreach ($validacion as $error){
                 echo $error;
             }
         }
-        $usuario = User::createFromArray($_POST);
-        var_dump($usuario);
     }
 
 
     public function destroy(int $id)
     {
-
+    if(UserModel::deleteUser($id)){
+        //Si se ha borrado correctamente
+        http_response_code(200);
+        header('Content-Type: application/json');
+        return json_encode([
+            "error"=>false,
+            "message"=>"Usuario eliminado correctamente",
+            "code"=>200
+        ]);
+    }else{
+        //Si ha ocurrido algun fallo
+        http_response_code(404);
+        header('Content-Type: application/json');
+        return json_encode([
+            "error"=>true,
+            "message"=>"No se ha podido eliminar al usuario correctamente",
+            "code"=>404
+        ]);
+    }
     }
     public function edit(int $id)
     {

@@ -9,7 +9,7 @@ function comprobarDirectorio(string $path, string $name): bool
 function createDirectory(string $path, string $name): bool|string
 {
     $contentOfDirectory = scandir(FILES_DIRECTORY);
-    var_dump($contentOfDirectory);
+    //var_dump($contentOfDirectory);
     if (!in_array($name, $contentOfDirectory)) {
         mkdir(FILES_DIRECTORY . $name);
         return true;

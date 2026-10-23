@@ -35,3 +35,4 @@ insert into users(name, address, phone, birthdate, password, email)
             '123456789', STR_TO_DATE('26/05/2022', '%d/%c/%Y'),
             '12345678','carlos@email.com');
 //
+
