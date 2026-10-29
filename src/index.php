@@ -20,7 +20,7 @@
     //rutas de api rest
 
     //Vistas
-    $router->get('/register',[UserController::class, 'create']);
+    $router->get('/user/create',[UserController::class, 'create']);
     $router->get('/user/{id}/edit',[UserController::class, 'edit']);
 
     $router->get('/user',[UserController::class, 'index']);

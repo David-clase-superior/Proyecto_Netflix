@@ -7,8 +7,7 @@ use David\Proyecto1\Interfaces\ControllerInterface;
 use David\Proyecto1\Models\UserModel;
 use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Validator as v;
-class UserController implements ControllerInterface
-{
+class UserController implements ControllerInterface {
 
     public function index()
     {
@@ -33,6 +32,11 @@ class UserController implements ControllerInterface
     public function create()
     {
         // TODO: Implement create() method.
+        //No permite mostrar una interfaz con un formulario
+        $titulo = "Creacion de un nuevo usuario";
+        $descripcion = "Ingresa todos lo datos del formulario para crear un usuario";
+        include_once "app/Views/backend/admin.users.create.php";
+
     }
 
     public function update(int $id)
@@ -78,7 +82,7 @@ class UserController implements ControllerInterface
                 return "Ha ocurrido un error de almacenamiento";
 
             } else {
-                return "Se ha guardado";
+                header("Location: /user");
             }
         }else {
             foreach ($validacion as $error){
@@ -112,6 +116,10 @@ class UserController implements ControllerInterface
     }
     public function edit(int $id)
     {
-        // TODO: Implement edit() method.
+        // Necesito recuperar el usuario de la base de datos
+        $usuario = UserModel::getUserById($id);
+
+        //voy a incluir la vista de edicion de datos
+        include_once "app/Views/backnd/admin.users.edit.php";
     }
 }
