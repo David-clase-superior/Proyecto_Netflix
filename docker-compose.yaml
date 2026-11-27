@@ -11,13 +11,15 @@ services:
       -  USER_UID=${USUARIO_UID:-1000}
       -  USER_GID=${USUARIO_GID:-1000}
     container_name: containerphp
-
+    env_file:
+      - .env
     user: ${USUARIO:-app}:${USUARIO:-app}
     #www-data
 
     #Crear un volumen para almacenar mi página web
     volumes:
       - ./src:/var/www/html
+      - ./.env:/var/www/html/.env
       - .docker/apache/apache.conf:/etc/apache2/sites-enabled/000-default.conf
       #- .docker/apache/apache2.conf:/etc/apache2/apache2.conf
       - .docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -49,17 +51,6 @@ services:
       MARIADB_PASSWORD: ${MARIADB_PASSWORD:-password}
     command:
       --default-authentication-plugin=mysql_native_password
-
-#  mongo:
-#    image: mongo
-#    restart: on-failure
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: example
-#    networks:
-#      - proyecto1
-#    ports:
-#      - 27018:27017
 
 networks:
   proyecto1:

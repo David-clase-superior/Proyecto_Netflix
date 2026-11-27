@@ -1,82 +1,55 @@
 <?php
-    //echo "Pantalla principal de mi app";
-    //var_dump($_SERVER);
-    //include "app/Views/frontend/index.html";
-    //include "app/Views/backend/admin.index.php";
-    include_once "./vendor/autoload.php";
 
-    use Phroute\Phroute\Exception\HttpRouteNotFoundException;
-    use Phroute\Phroute\RouteCollector;
-    use David\Proyecto1\Controllers\UserController;
+use Phroute\Phroute\Exception\HttpRouteNotFoundException;
+use Phroute\Phroute\RouteCollector;
 
-    //Herramienta para cargar las variables de entorno
-    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-    $dotenv->load();
+use David\Proyecto1\Database\Database;
+use David\Proyecto1\Models\UsuarioModel;
+use David\Proyecto1\Models\PeliculaModel;
+use David\Proyecto1\Controllers\UsuarioController;
+use David\Proyecto1\Controllers\PeliculaController;
+use David\Proyecto1\Controllers\DashboardController;
 
-    $router = new RouteCollector();
-    //Rutas de ejemplo
+// Autoload de Composer
+include_once __DIR__ . "/vendor/autoload.php";
 
-    //rutas de usuario
-    //rutas de api rest
+// Cargar variables de entorno
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-    //Vistas
-    $router->get('/register',[UserController::class, 'create']);
-    $router->get('/user/{id}/edit',[UserController::class, 'edit']);
+// Crear conexión
+$conexion = Database::getConnection();
 
-    $router->get('/user',[UserController::class, 'index']);
-    $router->get('/user/{id}',[UserController::class, 'show']);
+// Crear modelo
+$usuarioModel = new UsuarioModel($conexion);
+$peliculaModel = new PeliculaModel($conexion);
 
-    $router->post('/user',[UserController::class, 'store']);
+// Crear controlador
+$usuarioController = new UsuarioController($usuarioModel);
+$peliculaController = new PeliculaController($peliculaModel);
+$dashboardController = new DashboardController($usuarioModel, $peliculaModel);
 
-    $router->put('/user/{id}',[UserController::class, 'update']);
+// Crear router
+$router = new RouteCollector();
 
-    $router->delete('/user/{id}',[UserController::class, 'destroy']);
+// Ruta principal
+$router->get('/' , fn() => $dashboardController->index());
+$router->get('/usuarios/crear' , fn() => $usuarioController->createForm());
+$router->get('/usuarios', fn() => $usuarioController->index());
+$router->get('/peliculas', fn() => $peliculaController->index());
 
+//Post
+$router->post('/usuarios/crear', fn() => $usuarioController->store());
+// Crear dispatcher
+$dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
 
-//Rutas de ejemplo
+try {
+    $response = $dispatcher->dispatch(
+        $_SERVER['REQUEST_METHOD'],
+        parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+    );
+} catch (HttpRouteNotFoundException $e) {
+    $response = "Link equivocado";
+}
 
-
-    $router->get('/', function(){
-        include_once "app/Views/frontend/frontend.index.php";
-    });
-    $router->get('/admin', function(){
-        include_once "app/Views/index.html";
-    });
-
-    $router->get('/obtener-pass', function(){
-        include_once "ejemplo/funciones.php";
-        echo create_pass();
-    });
-
-    $router->get('/series', function(){
-        include_once "app/Views/frontend/template/frontend.series.php";
-    });
-    $router->get('/movie/add', function(){
-        include_once "app/Views/backend/admin.movie.new.php";
-    });
-    $router->get('/panel-control', function(){
-        include_once "app/Views/backend/admin.index.php";
-    });
-    $router->get('/catalogo', function(){
-        include_once "app/Views/backend/catalogo.index.php";
-    });
-    $router->get('/formulario', function(){
-        include_once "app/Views/backend/code.php";
-    });
-    $router->post('/movie', function(){
-        //Que hacemos con los datos de la pelicula
-        var_dump($_POST);
-        //var_dump($_FILES);
-        //$_POST['genero'][0];
-        //manageFiles($_FILES);
-    });
-
-    $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
-
-    try {
-        $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-    }catch(HttpRouteNotFoundException $e){
-        $response = "Link equivocado";
-    }
-    // Print out the value returned from the dispatched function
-    echo $response;
+echo $response;
